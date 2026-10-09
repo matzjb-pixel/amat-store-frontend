@@ -44,9 +44,9 @@
         
         const box = document.getElementById('hasil-transaksi');
         box.style.display = 'block';
-        document.getElementById('info-pesan').innerText = data.message;
-        document.getElementById('info-target').innerText = 'Tujuan: ' + data.target;
-        document.getElementById('info-status').innerText = 'Status: ' + data.status_transaksi;
+        document.getElementById('info-pesan').innerText = data.message || 'Transaksi berhasil';
+        document.getElementById('info-target').innerText = 'Tujuan: ' + (data.target || data.nomor || '-');
+        document.getElementById('info-status').innerText = 'Status: ' + (data.status_transaksi || data.status || 'SUCCESS');
       } catch (err) {
         alert('Gagal terhubung ke backend.');
       }
@@ -54,4 +54,3 @@
   </script>
 </body>
 </html>
-
