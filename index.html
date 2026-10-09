@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amat Store</title>
+</head>
+<body>
+    <h1>Amat Store</h1>
+    <button onclick="lakukanTransaksi()">Test Transaksi</button>
+    <p id="status"></p>
+
+    <script>
+        async function lakukanTransaksi() {
+            document.getElementById('status').innerText = "Memproses...";
+            try {
+                const response = await fetch('https://amat-store-backend.vercel.app/api/transaksi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service_code: 'test', target: '08123456789' })
+                });
+                const data = await response.json();
+                document.getElementById('status').innerText = "Hasil: " + JSON.stringify(data);
+            } catch (err) {
+                document.getElementById('status').innerText = "Gagal terhubung ke backend.";
+            }
+        }
+    </script>
+</body>
+</html>
