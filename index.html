@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amat Store - Top Up Game Auto</title>
+    <!-- Midtrans Snap JS Sandbox -->
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-AVcQojd_HgwST2NN"></script>
     <style>
         :root {
             --bg-main: #0f172a;
@@ -132,6 +134,7 @@
                 <!-- Produk ML akan disusun otomatis oleh JavaScript agar Flash Sale di atas -->
             </div>
             <input type="hidden" id="service_code_ml" value="">
+            <input type="hidden" id="product_price_ml" value="0">
         </div>
 
         <div class="card">
@@ -158,6 +161,7 @@
                 <!-- Produk FF akan disusun otomatis oleh JavaScript agar Flash Sale di atas -->
             </div>
             <input type="hidden" id="service_code_ff" value="">
+            <input type="hidden" id="product_price_ff" value="0">
         </div>
 
         <div class="card">
@@ -174,7 +178,6 @@
         </div>
     </div>
 
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-AVcQojd_HgwST2NN"></script>
     <script>
         let currentSlide = 0;
         const totalSlides = 3; 
@@ -191,52 +194,52 @@
         }
         setInterval(geserBanner, 3000); 
 
-        // DATABASE SEMUA PRODUK
+        // DATABASE SEMUA PRODUK (Harga disesuaikan ke angka integer untuk kalkulasi pembayaran)
         const dataProdukML = [
-            { code: 'MLGLOBAL16642-S14', title: 'Weekly Diamond', price: 'Rp 27.885' },
-            { code: 'MLGLOBAL33-S14', title: 'Twilight Pass', price: 'Rp 147.550' },
-            { code: 'MLGLOBAL22590-S14', title: '55 Diamonds', price: 'Rp 14.875' },
-            { code: 'MLGLOBAL13-S14', title: '86 Diamonds', price: 'Rp 23.355' },
-            { code: 'MLGLOBAL22591-S14', title: '165 Diamonds', price: 'Rp 44.675' },
-            { code: 'MLGLOBAL23-S14', title: '172 Diamonds', price: 'Rp 46.225' },
-            { code: 'MLGLOBAL25-S14', title: '257 Diamonds', price: 'Rp 67.885' },
-            { code: 'MLGLOBAL22592-S14', title: '275 Diamonds', price: 'Rp 69.855' },
-            { code: 'MLGLOBAL22593-S14', title: '565 Diamonds', price: 'Rp 143.765' },
-            { code: 'MLGLOBAL26-S14', title: '706 Diamonds', price: 'Rp 178.555' },
-            { code: 'MLGLOBAL27-S14', title: '2195 Diamonds', price: 'Rp 548.875' },
-            { code: 'MLGLOBAL28-S14', title: '3688 Diamonds', price: 'Rp 897.665' },
-            { code: 'MLGLOBAL29-S14', title: '5532 Diamonds', price: 'Rp 1.348.555' },
-            { code: 'MLGLOBAL30-S14', title: '9288 Diamonds', price: 'Rp 2.248.875' }
+            { code: 'MLGLOBAL16642-S14', title: 'Weekly Diamond', priceStr: 'Rp 27.885', rawPrice: 28000 },
+            { code: 'MLGLOBAL33-S14', title: 'Twilight Pass', priceStr: 'Rp 147.550', rawPrice: 148000 },
+            { code: 'MLGLOBAL22590-S14', title: '55 Diamonds', priceStr: 'Rp 14.875', rawPrice: 15000 },
+            { code: 'MLGLOBAL13-S14', title: '86 Diamonds', priceStr: 'Rp 23.355', rawPrice: 24000 },
+            { code: 'MLGLOBAL22591-S14', title: '165 Diamonds', priceStr: 'Rp 44.675', rawPrice: 45000 },
+            { code: 'MLGLOBAL23-S14', title: '172 Diamonds', priceStr: 'Rp 46.225', rawPrice: 47000 },
+            { code: 'MLGLOBAL25-S14', title: '257 Diamonds', priceStr: 'Rp 67.885', rawPrice: 68000 },
+            { code: 'MLGLOBAL22592-S14', title: '275 Diamonds', priceStr: 'Rp 69.855', rawPrice: 70000 },
+            { code: 'MLGLOBAL22593-S14', title: '565 Diamonds', priceStr: 'Rp 143.765', rawPrice: 144000 },
+            { code: 'MLGLOBAL26-S14', title: '706 Diamonds', priceStr: 'Rp 178.555', rawPrice: 179000 },
+            { code: 'MLGLOBAL27-S14', title: '2195 Diamonds', priceStr: 'Rp 548.875', rawPrice: 549000 },
+            { code: 'MLGLOBAL28-S14', title: '3688 Diamonds', priceStr: 'Rp 897.665', rawPrice: 898000 },
+            { code: 'MLGLOBAL29-S14', title: '5532 Diamonds', priceStr: 'Rp 1.348.555', rawPrice: 1349000 },
+            { code: 'MLGLOBAL30-S14', title: '9288 Diamonds', priceStr: 'Rp 2.248.875', rawPrice: 2249000 }
         ];
 
         const dataProdukFF = [
-            { code: 'FF5-S13', title: '5 Diamonds', price: 'Rp 1.385' },
-            { code: 'FF10-S13', title: '10 Diamonds', price: 'Rp 1.885' },
-            { code: 'FF12-S13', title: '12 Diamonds', price: 'Rp 2.155' },
-            { code: 'FF20-S13', title: '20 Diamonds', price: 'Rp 3.755' },
-            { code: 'FF50-S13', title: '50 Diamonds', price: 'Rp 7.885' },
-            { code: 'FF70-S13', title: '70 Diamonds', price: 'Rp 9.875' },
-            { code: 'FF100-S13', title: '100 Diamonds', price: 'Rp 14.885' },
-            { code: 'FF140-S13', title: '140 Diamonds', price: 'Rp 19.655' },
-            { code: 'FF210-S13', title: '210 Diamonds', price: 'Rp 29.745' },
-            { code: 'FF280-S13', title: '280 Diamonds', price: 'Rp 38.555' },
-            { code: 'FF355-S13', title: '355 Diamonds', price: 'Rp 46.855' },
-            { code: 'FF500-S13', title: '500 Diamonds', price: 'Rp 65.885' },
-            { code: 'FF720-S13', title: '720 Diamonds', price: 'Rp 93.885' },
-            { code: 'FF1000-S13', title: '1000 Diamonds', price: 'Rp 128.555' },
-            { code: 'FF2000-S13', title: '2000 Diamonds', price: 'Rp 255.885' },
-            { code: 'FF7290-S13', title: '7290 Diamonds', price: 'Rp 925.885' },
-            { code: 'FFMM-S13', title: 'Member Mingguan', price: 'Rp 32.885' },
-            { code: 'FFMB-S13', title: 'Member Bulanan', price: 'Rp 94.675' }
+            { code: 'FF5-S13', title: '5 Diamonds', priceStr: 'Rp 1.385', rawPrice: 2000 },
+            { code: 'FF10-S13', title: '10 Diamonds', priceStr: 'Rp 1.885', rawPrice: 3000 },
+            { code: 'FF12-S13', title: '12 Diamonds', priceStr: 'Rp 2.155', rawPrice: 3000 },
+            { code: 'FF20-S13', title: '20 Diamonds', priceStr: 'Rp 3.755', rawPrice: 4000 },
+            { code: 'FF50-S13', title: '50 Diamonds', priceStr: 'Rp 7.885', rawPrice: 8000 },
+            { code: 'FF70-S13', title: '70 Diamonds', priceStr: 'Rp 9.875', rawPrice: 10000 },
+            { code: 'FF100-S13', title: '100 Diamonds', priceStr: 'Rp 14.885', rawPrice: 15000 },
+            { code: 'FF140-S13', title: '140 Diamonds', priceStr: 'Rp 19.655', rawPrice: 20000 },
+            { code: 'FF210-S13', title: '210 Diamonds', priceStr: 'Rp 29.745', rawPrice: 30000 },
+            { code: 'FF280-S13', title: '280 Diamonds', priceStr: 'Rp 38.555', rawPrice: 39000 },
+            { code: 'FF355-S13', title: '355 Diamonds', priceStr: 'Rp 46.855', rawPrice: 47000 },
+            { code: 'FF500-S13', title: '500 Diamonds', priceStr: 'Rp 65.885', rawPrice: 66000 },
+            { code: 'FF720-S13', title: '720 Diamonds', priceStr: 'Rp 93.885', rawPrice: 94000 },
+            { code: 'FF1000-S13', title: '1000 Diamonds', priceStr: 'Rp 128.555', rawPrice: 129000 },
+            { code: 'FF2000-S13', title: '2000 Diamonds', priceStr: 'Rp 255.885', rawPrice: 256000 },
+            { code: 'FF7290-S13', title: '7290 Diamonds', priceStr: 'Rp 925.885', rawPrice: 926000 },
+            { code: 'FFMM-S13', title: 'Member Mingguan', priceStr: 'Rp 32.885', rawPrice: 33000 },
+            { code: 'FFMB-S13', title: 'Member Bulanan', priceStr: 'Rp 94.675', rawPrice: 95000 }
         ];
 
         const poolFlashSale = [
-            { game: 'ml', name: '172 Diamonds (ML)', code: 'MLGLOBAL23-S14', old: 'Rp 46.225', new: 'Rp 44.285' },
-            { game: 'ml', name: '257 Diamonds (ML)', code: 'MLGLOBAL25-S14', old: 'Rp 67.885', new: 'Rp 65.455' },
-            { game: 'ml', name: '565 Diamonds (ML)', code: 'MLGLOBAL22593-S14', old: 'Rp 143.765', new: 'Rp 139.885' },
-            { game: 'ff', name: '140 Diamonds (FF)', code: 'FF140-S13', old: 'Rp 19.655', new: 'Rp 18.785' },
-            { game: 'ff', name: '210 Diamonds (FF)', code: 'FF210-S13', old: 'Rp 29.745', new: 'Rp 28.355' },
-            { game: 'ff', name: '355 Diamonds (FF)', code: 'FF355-S13', old: 'Rp 46.855', new: 'Rp 44.985' }
+            { game: 'ml', name: '172 Diamonds (ML)', code: 'MLGLOBAL23-S14', old: 'Rp 46.225', new: 'Rp 44.285', rawPrice: 44285 },
+            { game: 'ml', name: '257 Diamonds (ML)', code: 'MLGLOBAL25-S14', old: 'Rp 67.885', new: 'Rp 65.455', rawPrice: 65455 },
+            { game: 'ml', name: '565 Diamonds (ML)', code: 'MLGLOBAL22593-S14', old: 'Rp 143.765', new: 'Rp 139.885', rawPrice: 139885 },
+            { game: 'ff', name: '140 Diamonds (FF)', code: 'FF140-S13', old: 'Rp 19.655', new: 'Rp 18.785', rawPrice: 18785 },
+            { game: 'ff', name: '210 Diamonds (FF)', code: 'FF210-S13', old: 'Rp 29.745', new: 'Rp 28.355', rawPrice: 28355 },
+            { game: 'ff', name: '355 Diamonds (FF)', code: 'FF355-S13', old: 'Rp 46.855', new: 'Rp 44.985', rawPrice: 44985 }
         ];
 
         function getAktivasiFlashSale() {
@@ -271,7 +274,7 @@
             });
             document.getElementById('flash-items-container').innerHTML = htmlFS;
 
-            // 2. Render Produk ML (Urutkan Flash Sale ke Paling Atas)
+            // 2. Render Produk ML
             const sortedML = [...dataProdukML].sort((a, b) => {
                 const aFS = activeCodes.includes(a.code) ? 0 : 1;
                 const bFS = activeCodes.includes(b.code) ? 0 : 1;
@@ -282,17 +285,21 @@
             sortedML.forEach(p => {
                 const isFS = activeCodes.includes(p.code);
                 const borderStyle = isFS ? 'border-color: var(--accent);' : '';
+                const fsItem = activeFS.find(item => item.code === p.code);
+                const finalPrice = isFS ? fsItem.rawPrice : p.rawPrice;
+                const displayPrice = isFS ? fsItem.new : p.priceStr;
+
                 htmlML += `
-                    <div class="product-item" style="${borderStyle}" onclick="pilihProduk('ml', this, '${p.code}')">
+                    <div class="product-item" style="${borderStyle}" onclick="pilihProduk('ml', this, '${p.code}', ${finalPrice})">
                         ${isFS ? '<div style="background:var(--accent); color:white; font-size:9px; padding:1px 4px; border-radius:4px; margin-bottom:3px; display:inline-block; font-weight:bold;">FLASH SALE</div>' : ''}
                         <div class="title">${p.title}</div>
-                        <div class="price">${p.price}</div>
+                        <div class="price">${displayPrice}</div>
                     </div>
                 `;
             });
             document.getElementById('grid-ml').innerHTML = htmlML;
 
-            // 3. Render Produk FF (Urutkan Flash Sale ke Paling Atas)
+            // 3. Render Produk FF
             const sortedFF = [...dataProdukFF].sort((a, b) => {
                 const aFS = activeCodes.includes(a.code) ? 0 : 1;
                 const bFS = activeCodes.includes(b.code) ? 0 : 1;
@@ -303,11 +310,15 @@
             sortedFF.forEach(p => {
                 const isFS = activeCodes.includes(p.code);
                 const borderStyle = isFS ? 'border-color: var(--accent);' : '';
+                const fsItem = activeFS.find(item => item.code === p.code);
+                const finalPrice = isFS ? fsItem.rawPrice : p.rawPrice;
+                const displayPrice = isFS ? fsItem.new : p.priceStr;
+
                 htmlFF += `
-                    <div class="product-item" style="${borderStyle}" onclick="pilihProduk('ff', this, '${p.code}')">
+                    <div class="product-item" style="${borderStyle}" onclick="pilihProduk('ff', this, '${p.code}', ${finalPrice})">
                         ${isFS ? '<div style="background:var(--accent); color:white; font-size:9px; padding:1px 4px; border-radius:4px; margin-bottom:3px; display:inline-block; font-weight:bold;">FLASH SALE</div>' : ''}
                         <div class="title">${p.title}</div>
-                        <div class="price">${p.price}</div>
+                        <div class="price">${displayPrice}</div>
                     </div>
                 `;
             });
@@ -347,72 +358,70 @@
             window.scrollTo(0, 0); 
         }
 
-        function pilihProduk(game, element, kodeProduk) {
+        function pilihProduk(game, element, kodeProduk, hargaProduk) {
             const container = document.getElementById('page-' + game);
             const semuaKotak = container.querySelectorAll('.product-item');
             semuaKotak.forEach(kotak => kotak.classList.remove('active'));
             element.classList.add('active');
             document.getElementById('service_code_' + game).value = kodeProduk;
+            document.getElementById('product_price_' + game).value = hargaProduk;
         }
 
-        function prosesBeli(game) {
+        // --- FUNGSI PROSES PEMBELIAN & INTEGRASI MIDTRANS SNAP ---
+        async function prosesBeli(game) {
             const service_code = document.getElementById('service_code_' + game).value;
+            const grossAmount = parseInt(document.getElementById('product_price_' + game).value) || 0;
             const userId = document.getElementById('userId_' + game).value;
             const zoneId = game === 'ml' ? document.getElementById('zoneId_ml').value : '';
 
-            if (!service_code) { alert("Pilih nominal diamond dulu bos!"); return; }
+            if (!service_code || grossAmount <= 0) { alert("Pilih nominal diamond dulu bos!"); return; }
             if (!userId || (game === 'ml' && !zoneId)) { alert("Data ID belum lengkap bos!"); return; }
 
-            alert("Sistem Pembayaran Belum Diatur Bosku! Silakan daftarkan Payment Gateway (Tripay/Paydisini) terlebih dahulu ke backend Vercel.");
+            try {
+                // Tembak backend Vercel untuk ambil token Midtrans
+                const response = await fetch('https://amat-store-backend.vercel.app/api/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        orderId: `AMAT-${Date.now()}`,
+                        grossAmount: grossAmount,
+                        customerDetails: {
+                            name: "Gamer Amat Store",
+                            email: "customer@amatstore.com"
+                        }
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.token) {
+                    window.snap.pay(data.token, {
+                        onSuccess: function(result){
+                            alert("Pembayaran Berhasil! 🎉 Terima kasih sudah top up.");
+                            console.log(result);
+                        },
+                        onPending: function(result){
+                            alert("Menunggu pembayaran selesai...");
+                            console.log(result);
+                        },
+                        onError: function(result){
+                            alert("Pembayaran Gagal! ❌");
+                            console.log(result);
+                        },
+                        onClose: function(){
+                            alert('Anda menutup pop-up pembayaran sebelum selesai.');
+                        }
+                    });
+                } else {
+                    alert("Gagal mendapatkan token pembayaran dari server.");
+                }
+            } catch (err) {
+                console.error("Error checkout:", err);
+                alert("Terjadi kesalahan pada sistem pembayaran.");
+            }
         }
-        <script>
-  // --- KODE INTEGRASI MIDTRANS SNAP UNTUK AMAT STORE ---
-  async function prosesBeli(hargaProduk, namaProduk) {
-    try {
-      const response = await fetch('https://amat-store-backend.vercel.app/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          orderId: `AMAT-${Date.now()}`,
-          grossAmount: hargaProduk,
-          customerDetails: {
-            name: "Gamer Amat Store",
-            email: "customer@amatstore.com"
-          }
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.token) {
-        window.snap.pay(data.token, {
-          onSuccess: function(result){
-            alert("Pembayaran Berhasil! 🎉");
-            console.log(result);
-          },
-          onPending: function(result){
-            alert("Menunggu pembayaran selesai...");
-            console.log(result);
-          },
-          onError: function(result){
-            alert("Pembayaran Gagal! ❌");
-            console.log(result);
-          },
-          onClose: function(){
-            alert('Anda menutup pop-up pembayaran sebelum selesai.');
-          }
-        });
-      } else {
-        alert("Gagal mendapatkan token pembayaran dari server.");
-      }
-    } catch (err) {
-      console.error("Error checkout:", err);
-      alert("Terjadi kesalahan pada sistem pembayaran.");
-    }
-  }
-</script>
-
+    </script>
 </body>
 </html>
