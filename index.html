@@ -13,7 +13,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
-            --accent: #ef4444; /* Warna Merah untuk Flash Sale */
+            --accent: #ef4444;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; padding-bottom: 50px; }
@@ -22,21 +22,18 @@
         header h1 { font-size: 24px; font-weight: bold; color: var(--text-main); margin: 0; letter-spacing: 1px; }
         header h1 span { color: var(--primary); }
 
-        /* Marquee / Pengumuman Berjalan */
         .marquee-container { background: linear-gradient(90deg, #1d4ed8, #3b82f6); color: white; padding: 8px 0; font-size: 13px; font-weight: bold; overflow: hidden; white-space: nowrap; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); margin-bottom: 15px; }
         .marquee-container marquee { width: 100%; }
 
         .container { max-width: 500px; margin: 0 auto; padding: 0 15px; }
 
-        /* Banner Animasi */
-        .banner-container { width: 100%; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.3); border: 2px solid var(--border); }
+        .banner-container { width: 100%; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.3); border: 2px solid var(--border); background: #1e293b; }
         .banner-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
-        .banner-slide { width: 100%; flex-shrink: 0; aspect-ratio: 16/9; object-fit: cover; display: block; }
+        .banner-slide { width: 100%; flex-shrink: 0; aspect-ratio: 16/9; object-fit: cover; display: block; background: #0b1120; }
         .dot-container { position: absolute; bottom: 10px; width: 100%; text-align: center; }
         .dot { height: 8px; width: 8px; margin: 0 4px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; display: inline-block; transition: all 0.3s ease; }
         .dot.active { background-color: var(--primary); transform: scale(1.3); }
         
-        /* Flash Sale Card */
         .flash-sale-card { background: linear-gradient(135deg, #1e293b, #2a1b2e); border: 2px solid var(--accent); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2); }
         .flash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(239, 68, 68, 0.3); padding-bottom: 8px; }
         .flash-title { color: var(--accent); font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 5px; }
@@ -45,15 +42,11 @@
         .flash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .flash-item { background: #0b1120; border: 1px solid #451a03; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
         .flash-item:hover { border-color: var(--accent); }
-        .flash-item.active { background: var(--accent); border-color: var(--accent); color: white; }
         .flash-item .title { font-size: 12px; font-weight: bold; margin-bottom: 3px; }
         .flash-item .old-price { font-size: 11px; color: var(--text-muted); text-decoration: line-through; }
         .flash-item .new-price { font-size: 13px; color: #f87171; font-weight: bold; }
-        .flash-item.active .old-price { color: #fca5a5; }
-        .flash-item.active .new-price { color: white; }
         .badge-diskon { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 9px; padding: 2px 6px; border-bottom-left-radius: 6px; font-weight: bold; }
 
-        /* Menu Home */
         .home-title { text-align: center; margin-bottom: 15px; color: var(--text-main); font-weight: 600; font-size: 16px;}
         .game-grid-home { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
         .game-card { background-color: var(--bg-card); padding: 25px 15px; border-radius: 12px; text-align: center; border: 2px solid var(--border); cursor: pointer; transition: all 0.3s; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
@@ -95,19 +88,17 @@
         <h1>Amat<span>Store</span></h1>
     </header>
 
-    <!-- PENGUMUMAN BERJALAN (MARQUEE) -->
     <div class="marquee-container">
         <marquee behavior="scroll" direction="left">🔥 SELAMAT DATANG DI AMAT STORE • TOP UP OTOMATIS & AMAN • PROSES CEPAT KILAT • NIKMATI PROMO FLASH SALE SPESIAL TIAP 6 JAM SEKALI! 🔥</marquee>
     </div>
 
     <div class="container" id="page-home">
         
-        <!-- BANNER PROMO ANIMASI -->
         <div class="banner-container">
             <div class="banner-wrapper" id="banner-wrapper">
-                <img src="banner1.png" class="banner-slide" alt="Promo 1">
-                <img src="banner2.png" class="banner-slide" alt="Promo 2">
-                <img src="banner3.png" class="banner-slide" alt="Promo 3">
+                <img src="banner1.png" class="banner-slide" alt="Promo 1" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                <img src="banner2.png" class="banner-slide" alt="Promo 2" onerror="this.src='https://images.unsplash.com/photo-1538481199042-4318cda1918a?auto=format&fit=crop&w=800&q=80'">
+                <img src="banner3.png" class="banner-slide" alt="Promo 3" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
             </div>
             <div class="dot-container">
                 <span class="dot active"></span>
@@ -116,15 +107,12 @@
             </div>
         </div>
 
-        <!-- FITUR FLASH SALE (2 ML & 2 FF > 100 DM ROTASI 6 JAM) -->
         <div class="flash-sale-card">
             <div class="flash-header">
                 <div class="flash-title">⚡ FLASH SALE KILAT</div>
                 <div class="flash-timer" id="countdown">06:00:00</div>
             </div>
-            <div class="flash-grid" id="flash-items-container">
-                <!-- Diisi otomatis oleh JavaScript tiap 6 jam -->
-            </div>
+            <div class="flash-grid" id="flash-items-container"></div>
         </div>
 
         <h3 class="home-title">🔥 Kategori Populer 🔥</h3>
@@ -140,49 +128,8 @@
         <div class="btn-back" onclick="bukaHalaman('page-home')">⬅ Kembali</div>
         <div class="card">
             <div class="card-title"><span class="number">1</span> Pilih Nominal Top Up</div>
-            <div class="product-grid">
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL16642-S14')">
-                    <div class="title">Weekly Diamond</div><div class="price">Rp 27.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL33-S14')">
-                    <div class="title">Twilight Pass</div><div class="price">Rp 147.550</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL22590-S14')">
-                    <div class="title">55 Diamonds</div><div class="price">Rp 14.875</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL13-S14')">
-                    <div class="title">86 Diamonds</div><div class="price">Rp 23.355</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL22591-S14')">
-                    <div class="title">165 Diamonds</div><div class="price">Rp 44.675</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL23-S14')">
-                    <div class="title">172 Diamonds</div><div class="price">Rp 46.225</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL25-S14')">
-                    <div class="title">257 Diamonds</div><div class="price">Rp 67.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL22592-S14')">
-                    <div class="title">275 Diamonds</div><div class="price">Rp 69.855</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL22593-S14')">
-                    <div class="title">565 Diamonds</div><div class="price">Rp 143.765</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL26-S14')">
-                    <div class="title">706 Diamonds</div><div class="price">Rp 178.555</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL27-S14')">
-                    <div class="title">2195 Diamonds</div><div class="price">Rp 548.875</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL28-S14')">
-                    <div class="title">3688 Diamonds</div><div class="price">Rp 897.665</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL29-S14')">
-                    <div class="title">5532 Diamonds</div><div class="price">Rp 1.348.555</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ml', this, 'MLGLOBAL30-S14')">
-                    <div class="title">9288 Diamonds</div><div class="price">Rp 2.248.875</div>
-                </div>
+            <div class="product-grid" id="grid-ml">
+                <!-- Produk ML akan disusun otomatis oleh JavaScript agar Flash Sale di atas -->
             </div>
             <input type="hidden" id="service_code_ml" value="">
         </div>
@@ -207,61 +154,8 @@
         <div class="btn-back" onclick="bukaHalaman('page-home')">⬅ Kembali</div>
         <div class="card">
             <div class="card-title"><span class="number">1</span> Pilih Nominal Top Up</div>
-            <div class="product-grid">
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF5-S13')">
-                    <div class="title">5 Diamonds</div><div class="price">Rp 1.385</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF10-S13')">
-                    <div class="title">10 Diamonds</div><div class="price">Rp 1.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF12-S13')">
-                    <div class="title">12 Diamonds</div><div class="price">Rp 2.155</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF20-S13')">
-                    <div class="title">20 Diamonds</div><div class="price">Rp 3.755</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF50-S13')">
-                    <div class="title">50 Diamonds</div><div class="price">Rp 7.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF70-S13')">
-                    <div class="title">70 Diamonds</div><div class="price">Rp 9.875</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF100-S13')">
-                    <div class="title">100 Diamonds</div><div class="price">Rp 14.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF140-S13')">
-                    <div class="title">140 Diamonds</div><div class="price">Rp 19.655</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF210-S13')">
-                    <div class="title">210 Diamonds</div><div class="price">Rp 29.745</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF280-S13')">
-                    <div class="title">280 Diamonds</div><div class="price">Rp 38.555</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF355-S13')">
-                    <div class="title">355 Diamonds</div><div class="price">Rp 46.855</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF500-S13')">
-                    <div class="title">500 Diamonds</div><div class="price">Rp 65.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF720-S13')">
-                    <div class="title">720 Diamonds</div><div class="price">Rp 93.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF1000-S13')">
-                    <div class="title">1000 Diamonds</div><div class="price">Rp 128.555</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF2000-S13')">
-                    <div class="title">2000 Diamonds</div><div class="price">Rp 255.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FF7290-S13')">
-                    <div class="title">7290 Diamonds</div><div class="price">Rp 925.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FFMM-S13')">
-                    <div class="title">Member Mingguan</div><div class="price">Rp 32.885</div>
-                </div>
-                <div class="product-item" onclick="pilihProduk('ff', this, 'FFMB-S13')">
-                    <div class="title">Member Bulanan</div><div class="price">Rp 94.675</div>
-                </div>
+            <div class="product-grid" id="grid-ff">
+                <!-- Produk FF akan disusun otomatis oleh JavaScript agar Flash Sale di atas -->
             </div>
             <input type="hidden" id="service_code_ff" value="">
         </div>
@@ -281,9 +175,7 @@
     </div>
 
 
-    <!-- ================= LOGIKA JAVASCRIPT ================= -->
     <script>
-        // 1. BANNER SLIDESHOW OTOMATIS
         let currentSlide = 0;
         const totalSlides = 3; 
         function geserBanner() {
@@ -291,44 +183,85 @@
             if (currentSlide >= totalSlides) { currentSlide = 0; }
             const wrapper = document.getElementById('banner-wrapper');
             const dots = document.querySelectorAll('.dot');
-            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[currentSlide].classList.add('active');
+            if(wrapper) {
+                wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+                dots.forEach(dot => dot.classList.remove('active'));
+                if(dots[currentSlide]) dots[currentSlide].classList.add('active');
+            }
         }
         setInterval(geserBanner, 3000); 
 
-        // 2. SISTEM FLASH SALE OTOMATIS ROTASI 6 JAM (>100 DIAMOND)
+        // DATABASE SEMUA PRODUK
+        const dataProdukML = [
+            { code: 'MLGLOBAL16642-S14', title: 'Weekly Diamond', price: 'Rp 27.885' },
+            { code: 'MLGLOBAL33-S14', title: 'Twilight Pass', price: 'Rp 147.550' },
+            { code: 'MLGLOBAL22590-S14', title: '55 Diamonds', price: 'Rp 14.875' },
+            { code: 'MLGLOBAL13-S14', title: '86 Diamonds', price: 'Rp 23.355' },
+            { code: 'MLGLOBAL22591-S14', title: '165 Diamonds', price: 'Rp 44.675' },
+            { code: 'MLGLOBAL23-S14', title: '172 Diamonds', price: 'Rp 46.225' },
+            { code: 'MLGLOBAL25-S14', title: '257 Diamonds', price: 'Rp 67.885' },
+            { code: 'MLGLOBAL22592-S14', title: '275 Diamonds', price: 'Rp 69.855' },
+            { code: 'MLGLOBAL22593-S14', title: '565 Diamonds', price: 'Rp 143.765' },
+            { code: 'MLGLOBAL26-S14', title: '706 Diamonds', price: 'Rp 178.555' },
+            { code: 'MLGLOBAL27-S14', title: '2195 Diamonds', price: 'Rp 548.875' },
+            { code: 'MLGLOBAL28-S14', title: '3688 Diamonds', price: 'Rp 897.665' },
+            { code: 'MLGLOBAL29-S14', title: '5532 Diamonds', price: 'Rp 1.348.555' },
+            { code: 'MLGLOBAL30-S14', title: '9288 Diamonds', price: 'Rp 2.248.875' }
+        ];
+
+        const dataProdukFF = [
+            { code: 'FF5-S13', title: '5 Diamonds', price: 'Rp 1.385' },
+            { code: 'FF10-S13', title: '10 Diamonds', price: 'Rp 1.885' },
+            { code: 'FF12-S13', title: '12 Diamonds', price: 'Rp 2.155' },
+            { code: 'FF20-S13', title: '20 Diamonds', price: 'Rp 3.755' },
+            { code: 'FF50-S13', title: '50 Diamonds', price: 'Rp 7.885' },
+            { code: 'FF70-S13', title: '70 Diamonds', price: 'Rp 9.875' },
+            { code: 'FF100-S13', title: '100 Diamonds', price: 'Rp 14.885' },
+            { code: 'FF140-S13', title: '140 Diamonds', price: 'Rp 19.655' },
+            { code: 'FF210-S13', title: '210 Diamonds', price: 'Rp 29.745' },
+            { code: 'FF280-S13', title: '280 Diamonds', price: 'Rp 38.555' },
+            { code: 'FF355-S13', title: '355 Diamonds', price: 'Rp 46.855' },
+            { code: 'FF500-S13', title: '500 Diamonds', price: 'Rp 65.885' },
+            { code: 'FF720-S13', title: '720 Diamonds', price: 'Rp 93.885' },
+            { code: 'FF1000-S13', title: '1000 Diamonds', price: 'Rp 128.555' },
+            { code: 'FF2000-S13', title: '2000 Diamonds', price: 'Rp 255.885' },
+            { code: 'FF7290-S13', title: '7290 Diamonds', price: 'Rp 925.885' },
+            { code: 'FFMM-S13', title: 'Member Mingguan', price: 'Rp 32.885' },
+            { code: 'FFMB-S13', title: 'Member Bulanan', price: 'Rp 94.675' }
+        ];
+
         const poolFlashSale = [
-            // ML > 100 DM
             { game: 'ml', name: '172 Diamonds (ML)', code: 'MLGLOBAL23-S14', old: 'Rp 46.225', new: 'Rp 44.285' },
             { game: 'ml', name: '257 Diamonds (ML)', code: 'MLGLOBAL25-S14', old: 'Rp 67.885', new: 'Rp 65.455' },
             { game: 'ml', name: '565 Diamonds (ML)', code: 'MLGLOBAL22593-S14', old: 'Rp 143.765', new: 'Rp 139.885' },
-            // FF > 100 DM
             { game: 'ff', name: '140 Diamonds (FF)', code: 'FF140-S13', old: 'Rp 19.655', new: 'Rp 18.785' },
             { game: 'ff', name: '210 Diamonds (FF)', code: 'FF210-S13', old: 'Rp 29.745', new: 'Rp 28.355' },
             { game: 'ff', name: '355 Diamonds (FF)', code: 'FF355-S13', old: 'Rp 46.855', new: 'Rp 44.985' }
         ];
 
-        function muatFlashSale() {
-            // Tentukan slot berdasarkan blok waktu 6 jam (0-6, 6-12, 12-18, 18-24)
+        function getAktivasiFlashSale() {
             const jamSekarang = new Date().getHours();
             const indexBlok = Math.floor(jamSekarang / 6);
-            
-            // Ambil 2 ML dan 2 FF secara bergantian berdasarkan waktu
             const mlList = poolFlashSale.filter(item => item.game === 'ml');
             const ffList = poolFlashSale.filter(item => item.game === 'ff');
             
-            const pilihanML1 = mlList[indexBlok % mlList.length];
-            const pilihanML2 = mlList[(indexBlok + 1) % mlList.length];
-            const pilihanFF1 = ffList[indexBlok % ffList.length];
-            const pilihanFF2 = ffList[(indexBlok + 1) % ffList.length];
+            return [
+                mlList[indexBlok % mlList.length],
+                mlList[(indexBlok + 1) % mlList.length],
+                ffList[indexBlok % ffList.length],
+                ffList[(indexBlok + 1) % ffList.length]
+            ];
+        }
 
-            const itemTerpilih = [pilihanML1, pilihanFF1, pilihanML2, pilihanFF2];
-            
-            let html = '';
-            itemTerpilih.forEach(item => {
-                html += `
-                    <div class="flash-item" onclick="pilihFlashSale('${item.game}', '${item.code}', this)">
+        function renderSemua() {
+            const activeFS = getAktivasiFlashSale();
+            const activeCodes = activeFS.map(item => item.code);
+
+            // 1. Render Flash Sale di Beranda
+            let htmlFS = '';
+            activeFS.forEach(item => {
+                htmlFS += `
+                    <div class="flash-item" onclick="pilihFlashSale('${item.game}', '${item.code}')">
                         <div class="badge-diskon">HEMAT</div>
                         <div class="title">${item.name}</div>
                         <div class="old-price">${item.old}</div>
@@ -336,37 +269,76 @@
                     </div>
                 `;
             });
-            document.getElementById('flash-items-container').innerHTML = html;
+            document.getElementById('flash-items-container').innerHTML = htmlFS;
+
+            // 2. Render Produk ML (Urutkan Flash Sale ke Paling Atas)
+            const sortedML = [...dataProdukML].sort((a, b) => {
+                const aFS = activeCodes.includes(a.code) ? 0 : 1;
+                const bFS = activeCodes.includes(b.code) ? 0 : 1;
+                return aFS - bFS;
+            });
+
+            let htmlML = '';
+            sortedML.forEach(p => {
+                const isFS = activeCodes.includes(p.code);
+                const borderStyle = isFS ? 'border-color: var(--accent);' : '';
+                htmlML += `
+                    <div class="product-item" style="${borderStyle}" onclick="pilihProduk('ml', this, '${p.code}')">
+                        ${isFS ? '<div style="background:var(--accent); color:white; font-size:9px; padding:1px 4px; border-radius:4px; margin-bottom:3px; display:inline-block; font-weight:bold;">FLASH SALE</div>' : ''}
+                        <div class="title">${p.title}</div>
+                        <div class="price">${p.price}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('grid-ml').innerHTML = htmlML;
+
+            // 3. Render Produk FF (Urutkan Flash Sale ke Paling Atas)
+            const sortedFF = [...dataProdukFF].sort((a, b) => {
+                const aFS = activeCodes.includes(a.code) ? 0 : 1;
+                const bFS = activeCodes.includes(b.code) ? 0 : 1;
+                return aFS - bFS;
+            });
+
+            let htmlFF = '';
+            sortedFF.forEach(p => {
+                const isFS = activeCodes.includes(p.code);
+                const borderStyle = isFS ? 'border-color: var(--accent);' : '';
+                htmlFF += `
+                    <div class="product-item" style="${borderStyle}" onclick="pilihProduk('ff', this, '${p.code}')">
+                        ${isFS ? '<div style="background:var(--accent); color:white; font-size:9px; padding:1px 4px; border-radius:4px; margin-bottom:3px; display:inline-block; font-weight:bold;">FLASH SALE</div>' : ''}
+                        <div class="title">${p.title}</div>
+                        <div class="price">${p.price}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('grid-ff').innerHTML = htmlFF;
         }
 
-        // Fungsi klik produk flash sale langsung lari ke halaman game terkait
-        function pilihFlashSale(game, kode, element) {
+        function pilihFlashSale(game, kode) {
             bukaHalaman('page-' + game);
             const container = document.getElementById('page-' + game);
             const semuaKotak = container.querySelectorAll('.product-item');
             semuaKotak.forEach(kotak => {
                 if(kotak.getAttribute('onclick').includes(kode)) {
-                    kotak.click(); // Otomatis klik produk tersebut di halaman game
+                    kotak.click();
                 }
             });
         }
 
-        // Hitung mundur waktu menuju pergantian 6 jam berikutnya
         function updateCountdown() {
             const now = new Date();
             const jam = now.getHours();
             const sisaJam = 5 - (jam % 6);
             const sisaMenit = 59 - now.getMinutes();
             const sisaDetik = 59 - now.getSeconds();
-            
             const format = `${String(sisaJam).padStart(2,'0')}:${String(sisaMenit).padStart(2,'0')}:${String(sisaDetik).padStart(2,'0')}`;
-            document.getElementById('countdown').innerText = format;
+            const el = document.getElementById('countdown');
+            if(el) el.innerText = format;
         }
 
-        muatFlashSale();
+        renderSemua();
         setInterval(updateCountdown, 1000);
 
-        // 3. NAVIGASI & TRANSAKSI
         function bukaHalaman(idHalaman) {
             document.getElementById('page-home').style.display = 'none';
             document.getElementById('page-ml').style.display = 'none';
