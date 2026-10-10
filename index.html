@@ -1,56 +1,76 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amat Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amat Store</title>
 </head>
 <body>
-  <h1>Amat Store</h1>
-  <div>
-    <label>Pilih Produk:</label><br>
-    <select id="service_code">
-      <option value="ml-50">Mobile Legends 50 Diamond</option>
-      <option value="telkomsel-10k">Pulsa Telkomsel 10.000</option>
-    </select>
-  </div>
-  <br>
-  <div>
-    <label>Nomor Tujuan / ID:</label><br>
-    <input type="text" id="target" placeholder="Masukkan Nomor atau ID">
-  </div>
-  <br>
-  <button onclick="lakukanTransaksi()">Beli Sekarang</button>
-  
-  <div id="hasil-transaksi" style="margin-top: 15px; padding: 15px; background: #1e293b; border-radius: 8px; color: #fff; display: none;">
-    <h4 style="margin: 0 0 8px 0; color: #38bdf8;">Status Transaksi</h4>
-    <p id="info-pesan" style="margin: 4px 0;"></p>
-    <p id="info-target" style="margin: 4px 0;"></p>
-    <p id="info-status" style="margin: 4px 0; font-weight: bold;"></p>
-  </div>
-
-  <script>
-    async function lakukanTransaksi() {
-      const service_code = document.getElementById('service_code').value;
-      const targetInput = document.getElementById('target').value;
-
-      try {
-        const response = await fetch('https://amat-store-backend.vercel.app/api/transaksi', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ service_code, target: targetInput })
-        });
-        const data = await response.json();
+    <h1>Amat Store</h1>
+    <div>
+        <label>Pilih Produk:</label><br>
+        <select id="service_code">
+            <!-- Value diganti dengan kode produk VIP Reseller -->
+            <option value="MLGLOBAL22590-S14">Mobile Legends 55 Diamond</option>
+            <option value="telkomsel-10k">Pulsa Telkomsel 10.000 (Menyusul)</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <!-- Diubah jadi 2 kotak input untuk User ID dan Zone ID -->
+        <label>User ID:</label><br>
+        <input type="text" id="userId" placeholder="Contoh: 12345678"><br><br>
         
-        const box = document.getElementById('hasil-transaksi');
-        box.style.display = 'block';
-        document.getElementById('info-pesan').innerText = data.message || 'Transaksi berhasil';
-        document.getElementById('info-target').innerText = 'Tujuan: ' + (data.target || targetInput);
-        document.getElementById('info-status').innerText = 'Status: ' + (data.status_transaksi || 'SUCCESS');
-      } catch (err) {
-        alert('Gagal terhubung ke backend.');
-      }
-    }
-  </script>
+        <label>Zone ID:</label><br>
+        <input type="text" id="zoneId" placeholder="Contoh: 1234">
+    </div>
+    <br>
+    <button onclick="lakukanTransaksi()">Beli Sekarang</button>
+
+    <!-- Kotak hasil transaksi bawaan lu tetap dipertahankan -->
+    <div id="hasil-transaksi" style="display: none; margin-top: 15px; padding: 15px; background: #1e293b; border-radius: 8px; color: #fff;">
+        <h4 style="margin: 0 0 8px 0; color: #38bdf8;">Status Transaksi</h4>
+        <p id="info-pesan" style="margin: 4px 0;"></p>
+        <p id="info-target" style="margin: 4px 0;"></p>
+        <p id="info-status" style="margin: 4px 0; font-weight: bold;"></p>
+    </div>
+
+    <script>
+        async function lakukanTransaksi() {
+            const service_code = document.getElementById('service_code').value;
+            const userId = document.getElementById('userId').value;
+            const zoneId = document.getElementById('zoneId').value;
+
+            // Cek apakah kolom ID kosong
+            if (!userId || !zoneId) {
+                alert("Harap isi User ID dan Zone ID!");
+                return;
+            }
+
+            try {
+                // Endpoint Vercel Backend lu
+                const response = await fetch('https://amat-store-backend.vercel.app/api/transaksi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        service_code: service_code, 
+                        target: userId, 
+                        zone: zoneId // Ngirim zone secara terpisah
+                    })
+                });
+
+                const data = await response.json();
+
+                // Nampilin hasil di kotak desain lu
+                const box = document.getElementById('hasil-transaksi');
+                box.style.display = 'block';
+                document.getElementById('info-pesan').innerText = data.message || 'Transaksi sedang diproses...';
+                document.getElementById('info-target').innerText = 'Tujuan: ' + userId + ' (' + zoneId + ')';
+                document.getElementById('info-status').innerText = 'Status: ' + (data.status_transaksi || 'SUCCESS');
+            } catch (err) {
+                alert('Gagal terhubung ke backend.');
+            }
+        }
+    </script>
 </body>
 </html>
