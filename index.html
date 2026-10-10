@@ -365,6 +365,55 @@
 
             alert("Sistem Pembayaran Belum Diatur Bosku! Silakan daftarkan Payment Gateway (Tripay/Paydisini) terlebih dahulu ke backend Vercel.");
         }
+        <script>
+  // --- KODE INTEGRASI MIDTRANS SNAP UNTUK AMAT STORE ---
+  async function prosesBeli(hargaProduk, namaProduk) {
+    try {
+      const response = await fetch('https://amat-store-backend.vercel.app/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderId: `AMAT-${Date.now()}`,
+          grossAmount: hargaProduk,
+          customerDetails: {
+            name: "Gamer Amat Store",
+            email: "customer@amatstore.com"
+          }
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.token) {
+        window.snap.pay(data.token, {
+          onSuccess: function(result){
+            alert("Pembayaran Berhasil! 🎉");
+            console.log(result);
+          },
+          onPending: function(result){
+            alert("Menunggu pembayaran selesai...");
+            console.log(result);
+          },
+          onError: function(result){
+            alert("Pembayaran Gagal! ❌");
+            console.log(result);
+          },
+          onClose: function(){
+            alert('Anda menutup pop-up pembayaran sebelum selesai.');
+          }
+        });
+      } else {
+        alert("Gagal mendapatkan token pembayaran dari server.");
+      }
+    } catch (err) {
+      console.error("Error checkout:", err);
+      alert("Terjadi kesalahan pada sistem pembayaran.");
+    }
+  }
+</script>
+
     </script>
 </body>
 </html>
