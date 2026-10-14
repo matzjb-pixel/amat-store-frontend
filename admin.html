@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Amat Store</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0b111e; color: #fff; padding: 15px; margin: 0; }
+    .container { max-width: 650px; margin: 0 auto; background: #151f32; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    h2 { text-align: center; color: #38bdf8; }
+    .login-box, .dashboard { display: none; }
+    .active { display: block; }
+    input, button { width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: none; font-size: 14px; box-sizing: border-box; }
+    input { background: #1e293b; color: #fff; border: 1px solid #334155; }
+    button { background: #2563eb; color: #fff; font-weight: bold; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    .product-card { background: #1e293b; padding: 12px; margin-top: 12px; border-radius: 8px; border: 1px solid #334155; }
+    .row { display: flex; gap: 8px; margin-top: 6px; }
+    .row input { margin-top: 0; }
+    .actions { display: flex; gap: 8px; margin-top: 10px; }
+    .btn-toggle { flex: 1; padding: 8px; font-weight: bold; border-radius: 6px; border: none; cursor: pointer; }
+    .btn-true { background: #16a34a; color: #fff; }
+    .btn-false { background: #dc2626; color: #fff; }
+    .btn-fs-true { background: #ca8a04; color: #fff; }
+    .btn-fs-false { background: #475569; color: #fff; }
+    .save-btn { background: #0284c7; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>⚡ Master Admin Amat Store</h2>
+
+    <!-- Login -->
+    <div id="loginBox" class="login-box active">
+      <p style="text-align: center; color: #94a3b8;">Masukkan password admin:</p>
+      <input type="password" id="adminPassword" placeholder="Password...">
+      <button onclick="checkLogin()">Masuk</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardBox" class="dashboard">
+      <p style="color: #4ade80; text-align: center; font-size: 14px;">Kontrol Stok, Harga & Flash Sale Aktif!</p>
+      <div id="productList">Memuat produk...</div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'SUPABASE_URL_LU';
+    const SUPABASE_ANON_KEY = 'SUPABASE_ANON_KEY_LU';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const ADMIN_SECRET = 'amatganteng123';
+
+    function checkLogin() {
+      if (document.getElementById('adminPassword').value === ADMIN_SECRET) {
+        document.getElementById('loginBox').classList.remove('active');
+        document.getElementById('dashboardBox').classList.add('active');
+        loadProducts();
+      } else {
+        alert('Password salah, Mat!');
+      }
+    }
+
+    async function loadProducts() {
+      const { data, error } = await supabase.from('product_stocks').select('*').order('product_id', { ascending: true });
+      const listEl = document.getElementById('productList');
+      
+      if (error) {
+        listEl.innerHTML = '<p style="color:red; text-align:center;">Gagal memuat database.</p>';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        listEl.innerHTML = '<p style="text-align:center; color:#94a3b8;">Belum ada produk. Tambahkan lewat tabel Supabase.</p>';
+        return;
+      }
+
+      let html = '';
+      data.forEach(item => {
+        html += `
+          <div class="product-card">
+            <div><strong>${item.product_name}</strong> <small style="color:#94a3b8;">(ID: ${item.product_id})</small></div>
+            
+            <div class="row" style="margin-top:8px;">
+              <div>
+                <small style="color:#94a3b8;">Harga Normal (Rp):</small>
+                <input type="number" id="price_${item.product_id}" value="${item.price}">
+              </div>
+              <div>
+                <small style="color:#94a3b8;">Harga Flash Sale (Rp):</small>
+                <input type="number" id="fsprice_${item.product_id}" value="${item.flashsale_price}">
+              </div>
+            </div>
+
+            <button class="save-btn" onclick="updatePrice('${item.product_id}')">💾 Simpan Perubahan Harga</button>
+
+            <div class="actions">
+              <button class="btn-toggle ${item.is_available ? 'btn-true' : 'btn-false'}" 
+                      onclick="toggleStatus('${item.product_id}', 'is_available', ${!item.is_available})">
+                ${item.is_available ? 'Stok: Ready ✅' : 'Stok: Habis ❌'}
+              </button>
+              <button class="btn-toggle ${item.is_flashsale ? 'btn-fs-true' : 'btn-fs-false'}" 
+                      onclick="toggleStatus('${item.product_id}', 'is_flashsale', ${!item.is_flashsale})">
+                ${item.is_flashsale ? 'Flash Sale: ON ⚡' : 'Flash Sale: OFF'}
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      listEl.innerHTML = html;
+    }
+
+    async function updatePrice(productId) {
+      const newPrice = document.getElementById(`price_${productId}`).value;
+      const newFsPrice = document.getElementById(`fsprice_${productId}`).value;
+
+      const { error } = await supabase
+        .from('product_stocks')
+        .update({ price: newPrice, flashsale_price: newFsPrice })
+        .eq('product_id', productId);
+
+      if (error) {
+        alert('Gagal update harga!');
+      } else {
+        alert('Harga berhasil diupdate, Mat! 🚀');
+        loadProducts();
+      }
+    }
+
+    async function toggleStatus(productId, column, newValue) {
+      const updateData = {};
+      updateData[column] = newValue;
+
+      const { error } = await supabase
+        .from('product_stocks')
+        .update(updateData)
+        .eq('product_id', productId);
+
+      if (error) {
+        alert('Gagal mengubah status!');
+      } else {
+        loadProducts();
+      }
+    }
+  </script>
+</body>
+</html>
