@@ -49,7 +49,9 @@
   <script>
     const SUPABASE_URL = 'https://ljrjweuweronwvdbjylq.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_ObJ9CIFo3kHHrJ1KZgbeTQ_eKBFrz9a';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Nama variabel diubah jadi supabaseClient biar gak error
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const ADMIN_SECRET = 'amatganteng123';
 
     function checkLogin() {
@@ -63,7 +65,7 @@
     }
 
     async function loadProducts() {
-      const { data, error } = await supabase.from('product_stocks').select('*').order('product_id', { ascending: true });
+      const { data, error } = await supabaseClient.from('product_stocks').select('*').order('product_id', { ascending: true });
       const listEl = document.getElementById('productList');
       
       if (error) {
@@ -115,7 +117,7 @@
       const newPrice = document.getElementById(`price_${productId}`).value;
       const newFsPrice = document.getElementById(`fsprice_${productId}`).value;
 
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('product_stocks')
         .update({ price: newPrice, flashsale_price: newFsPrice })
         .eq('product_id', productId);
@@ -132,7 +134,7 @@
       const updateData = {};
       updateData[column] = newValue;
 
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('product_stocks')
         .update(updateData)
         .eq('product_id', productId);
